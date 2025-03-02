@@ -1,10 +1,17 @@
 package com.project.tp_foyer.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Entity
-public class Foyer {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Foyer{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFoyer;
     private String nomFoyer;
