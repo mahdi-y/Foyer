@@ -1,6 +1,7 @@
 package com.project.tp_foyer.service;
 
 import com.project.tp_foyer.model.Chambre;
+import com.project.tp_foyer.model.TypeChambre;
 import com.project.tp_foyer.repository.ChambreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +37,18 @@ public class ChambreServiceImpl implements IChambreService {
     public void deleteChambre(Long id) {
         chambreRepository.deleteById(id);
     }
+
+    @Override
+    public List<Chambre> getChambresNonReserveParNomUniversiteEtTypeChambre(String nomUniversite, TypeChambre type) {
+        return chambreRepository.findUnreservedRoomsByUniversityAndType(nomUniversite, type);
+    }
+
+    @Override
+    public List<Chambre> getChambresParBlocEtType(long idBloc, TypeChambre typeC) {
+        List<Chambre> roomsJPQL = chambreRepository.findRoomsByBlockAndTypeJPQL(idBloc, typeC);
+        List<Chambre> roomsKeywords = chambreRepository.findByBlocIdBlocAndTypeC(idBloc, typeC);
+        return roomsJPQL.isEmpty() ? roomsKeywords : roomsJPQL;
+    }
+
+
 }
